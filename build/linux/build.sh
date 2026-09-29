@@ -17,4 +17,5 @@ export NEXTCLOUD_USER NEXTCLOUD_PASS REGISTRY TAG PRODUCT_VERSION \
 
 docker buildx bake -f ../docker-bake.hcl -f docker-bake.hcl packages \
        --set "desktop-linux.contexts.desktop-common=target:desktop-common" \
-       --set "*.context=../.."
+       --set "*.context=../.." \
+       "$@"
