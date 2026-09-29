@@ -1,0 +1,24 @@
+# Line endings: files that run inside Linux containers or shells must stay LF
+# on every machine, whatever core.autocrlf is set to (a CRLF Dockerfile heredoc
+# or shell script breaks the Linux build).
+*.sh            text eol=lf
+*Dockerfile     text eol=lf
+*.Dockerfile    text eol=lf
+*.hcl           text eol=lf
+*.m4            text eol=lf
+*.py            text eol=lf
+.dockerignore   text eol=lf
+.gitattributes  text eol=lf
+.gitignore      text eol=lf
+
+# Binary assets (never diff or convert)
+*.ttf   binary
+*.otf   binary
+*.woff  binary
+*.woff2 binary
+*.ico   binary
+*.png   binary
+*.bmp   binary
+*.docx  binary
+*.xlsx  binary
+*.pptx  binary

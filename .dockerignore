@@ -1,0 +1,54 @@
+# Docker build context for the bake graph (context = repo root).
+# The Windows build runs CMake in the repo root, so without this every build
+# output (third_party, vcpkg_installed, CMakeFiles, packages, ...) would be
+# uploaded to Docker. Exclude-only on purpose: an allowlist ("*" + "!dir")
+# makes BuildKit drop files when bake builds several targets that share this
+# context ("/web-apps": not found).
+
+# Git metadata
+.git
+
+# In-source CMake build outputs (Windows build.ps1)
+.ninja_deps
+.ninja_log
+.qt
+.vcpkg
+build.ninja
+cmake_install.cmake
+CMakeCache.txt
+CMakeFiles
+install_manifest.txt
+vcpkg_installed
+vcpkg-manifest-install.log
+third_party
+*_autogen
+qrc_*.cpp
+*.exe
+allfontsgen
+allthemesgen
+ascdocumentscore
+DjVuFile
+EpubFile
+Fb2File
+HWPFile
+IWorkFile
+OFDFile
+PdfFile
+XpsFile
+hunspell-wrapper
+ooxmlsignature
+qtascdocumentscore
+x2t
+package
+common
+desktopeditors
+*.log
+
+# Build outputs inside source trees
+build/deploy
+build/linux/deploy
+build/windows/.docker-cache
+desktop-apps/package/build
+desktop-apps/package/zip
+desktop-apps/package/inno/*.exe
+**/node_modules
