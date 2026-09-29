@@ -1,12 +1,14 @@
 [submodule "desktop-apps"]
 	path = desktop-apps
-	url = https://github.com/Euro-Office/desktop-apps.git
+	url = https://github.com/ArcadiaFrame/quill-desktop-apps.git
+	branch = quill
 [submodule "desktop-sdk"]
 	path = desktop-sdk
 	url = https://github.com/Euro-Office/desktop-sdk.git
 [submodule "core"]
 	path = core
-	url = https://github.com/Euro-Office/core.git
+	url = https://github.com/ArcadiaFrame/quill-core.git
+	branch = quill
 [submodule "sdkjs"]
 	path = sdkjs
 	url = https://github.com/Euro-Office/sdkjs.git
