@@ -310,7 +310,7 @@ try {
         $env:BUILD_ROOT      = '/package'
         $env:NUGET_CACHE     = 'local'
 
-        Push-Location (Join-Path $RepoRoot 'build')
+        Push-Location (Join-Path $RepoRoot 'build\windows')
         try {
             docker buildx bake -f ../docker-bake.hcl desktop-common `
                 --set "desktop-common.tags=desktop-common:local" `
@@ -323,6 +323,13 @@ try {
         docker create --name eo_common_tmp desktop-common:local true | Out-Null
         docker cp eo_common_tmp:/ $CommonDir
         docker rm eo_common_tmp | Out-Null
+        # 'docker cp <ctr>:/' also copies the stubs Docker injects into every
+        # container (etc/mtab is a symlink to /proc/mounts, which robocopy can't
+        # copy). They're not part of the common payload, so drop them.
+        foreach ($stub in 'dev', 'etc', 'proc', 'sys', '.dockerenv') {
+            $p = Join-Path $CommonDir $stub
+            if (Test-Path $p) { Remove-Item -Recurse -Force $p }
+        }
     }
 
     if (-not (Test-Path (Join-Path $CommonDir 'index.html')) -or
