@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Quill Office app icon: original artwork for this project (see THIRD_PARTY_ASSETS.md).
+       Aero glass tile, a written page, and the Quill helper's feather pen. -->
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3f8fe6"/>
+      <stop offset="0.55" stop-color="#1c5fb4"/>
+      <stop offset="1" stop-color="#0d3470"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e3ecf7"/>
+    </linearGradient>
+    <linearGradient id="feather" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff6d8"/>
+      <stop offset="0.6" stop-color="#f3c96a"/>
+      <stop offset="1" stop-color="#c98a22"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Glass tile -->
+  <rect x="8" y="8" width="240" height="240" rx="52" fill="url(#tile)"/>
+  <rect x="8.5" y="8.5" width="239" height="239" rx="51.5" fill="none" stroke="#0a2a5c" stroke-opacity="0.6"/>
+  <path d="M60 10h136a50 50 0 0 1 50 50v26c-60 22-160 22-236 0V60a50 50 0 0 1 50-50z" fill="url(#gloss)"/>
+
+  <!-- Page with a folded corner and lines of writing -->
+  <path d="M62 48h96l40 40v122a8 8 0 0 1-8 8H62a8 8 0 0 1-8-8V56a8 8 0 0 1 8-8z" fill="url(#page)" stroke="#0a2a5c" stroke-opacity="0.35" stroke-width="2"/>
+  <path d="M158 48v32a8 8 0 0 0 8 8h32z" fill="#b9cde6"/>
+  <g stroke="#6f8fb8" stroke-width="9" stroke-linecap="round">
+    <line x1="76" y1="112" x2="150" y2="112"/>
+    <line x1="76" y1="138" x2="136" y2="138"/>
+    <line x1="76" y1="164" x2="120" y2="164"/>
+  </g>
+
+  <!-- Quill (same shape as the Quill helper mascot, scaled up) -->
+  <g transform="translate(62 20) scale(4.1)">
+    <path d="M41 5C29 7 18 16 13 30l-3 9 3 1 3-8c9-2 17-9 21-19l-6 3 8-10z" fill="url(#feather)" stroke="#6b4310" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M37 9C27 14 19 23 14 36" fill="none" stroke="#8a5a17" stroke-width="1" stroke-linecap="round"/>
+  </g>
+  <!-- Ink flourish from the nib -->
+  <path d="M100 196c10-10 22-6 30-12" fill="none" stroke="#0d3470" stroke-width="6" stroke-linecap="round"/>
+</svg>

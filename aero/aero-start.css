@@ -1,0 +1,290 @@
+/*
+ * aero-start.css: Aero theme for the START PAGE (desktopeditors/index.html).
+ * Hooked in before </head> by aero/apply-aero.py. Edit here, then re-run it.
+ *
+ * The start page picks its colors by theme ID (loginpage/src/css/colors_<id>.less),
+ * so a custom theme would otherwise get the LIGHT defaults from colors.less plus only
+ * the few colors its JSON sets (light text on white). This file defines the complete
+ * start-page color set for both Aero modes. Modes: Aero Glass Dark, Light (neutral), Sepia (sandstorm). Selectors use
+ * ".theme-aero-*.theme-type-*" to outrank ":root .theme-*" blocks.
+ * Accent presets mirror aero.css (html[data-aero-accent], set by aero.js).
+ */
+
+/* ── Accent ─────────────────────────────────────────────────────────────── */
+:root .theme-aero-dark.theme-type-dark,
+:root .theme-aero-light.theme-type-light, :root .theme-matte-light.theme-type-light { --aero-accent-rgb: 61, 142, 230; }
+:root .theme-aero-sepia.theme-type-light { --aero-accent-rgb: 196, 128, 48; }
+html[data-aero-accent="aqua"]     .theme-aero-dark.theme-type-dark, html[data-aero-accent="aqua"]     .theme-aero-light.theme-type-light , html[data-aero-accent="aqua"] .theme-matte-dark.theme-type-dark, html[data-aero-accent="aqua"] .theme-matte-light.theme-type-light { --aero-accent-rgb:  32, 178, 196; }
+html[data-aero-accent="emerald"]  .theme-aero-dark.theme-type-dark, html[data-aero-accent="emerald"]  .theme-aero-light.theme-type-light , html[data-aero-accent="emerald"] .theme-matte-dark.theme-type-dark, html[data-aero-accent="emerald"] .theme-matte-light.theme-type-light { --aero-accent-rgb:  46, 170,  96; }
+html[data-aero-accent="violet"]   .theme-aero-dark.theme-type-dark, html[data-aero-accent="violet"]   .theme-aero-light.theme-type-light , html[data-aero-accent="violet"] .theme-matte-dark.theme-type-dark, html[data-aero-accent="violet"] .theme-matte-light.theme-type-light { --aero-accent-rgb: 140, 110, 220; }
+html[data-aero-accent="rose"]     .theme-aero-dark.theme-type-dark, html[data-aero-accent="rose"]     .theme-aero-light.theme-type-light , html[data-aero-accent="rose"] .theme-matte-dark.theme-type-dark, html[data-aero-accent="rose"] .theme-matte-light.theme-type-light { --aero-accent-rgb: 222,  88, 128; }
+html[data-aero-accent="amber"]    .theme-aero-dark.theme-type-dark, html[data-aero-accent="amber"]    .theme-aero-light.theme-type-light , html[data-aero-accent="amber"] .theme-matte-dark.theme-type-dark, html[data-aero-accent="amber"] .theme-matte-light.theme-type-light { --aero-accent-rgb: 235, 160,  40; }
+html[data-aero-accent="graphite"] .theme-aero-dark.theme-type-dark, html[data-aero-accent="graphite"] .theme-aero-light.theme-type-light, html[data-aero-accent="graphite"] .theme-aero-sepia.theme-type-light , html[data-aero-accent="graphite"] .theme-matte-dark.theme-type-dark, html[data-aero-accent="graphite"] .theme-matte-light.theme-type-light { --aero-accent-rgb: 140, 150, 165; }
+
+/* ── Aero Glass Dark: obsidian ──────────────────────────────────────────── */
+:root .theme-aero-dark.theme-type-dark, :root .theme-matte-dark.theme-type-dark {
+    --aero-accent: rgb(var(--aero-accent-rgb));
+    --aero-glow-color: rgba(var(--aero-accent-rgb), 0.5);
+    --aero-edge: rgba(255, 255, 255, 0.14);
+    --aero-gloss: 0.45;
+    --aero-shadow: rgba(0, 0, 0, 0.6);
+
+    --background-normal: #121a27;
+    --background-tabbar: #0e1624;
+    --background-button: #1f2d42;
+    --background-primary-button: var(--aero-accent);
+    --background-accent-button: var(--aero-accent);
+    --background-scroll-thumb: #2d4060;
+    --background-action-panel: #172131;
+    --background-icon-normal: #1f2d42;
+    --background-normal-element: #1f2d42;
+    --background-normal-element-light: #25364f;
+
+    --highlight-button-hover: rgba(130, 180, 255, 0.12);
+    --highlight-button-pressed: rgba(var(--aero-accent-rgb), 0.35);
+    --highlight-button-pressed-hover: rgba(var(--aero-accent-rgb), 0.45);
+    --highlight-accent-button-hover: rgba(var(--aero-accent-rgb), 0.85);
+    --highlight-accent-button-pressed: rgba(var(--aero-accent-rgb), 0.7);
+    --highlight-primary-button-hover: rgba(var(--aero-accent-rgb), 0.85);
+    --highlight-primary-button-pressed: rgba(var(--aero-accent-rgb), 0.7);
+    --highlight-header-button-hover: rgba(0, 0, 0, 0.2);
+    --highlight-text-select: rgba(var(--aero-accent-rgb), 0.5);
+    --highlight-scroll-thumb-hover: #3a5278;
+    --highlight-scroll-track-hover: rgba(255, 255, 255, 0.03);
+    --highlight-sidebar-item-pressed: rgba(var(--aero-accent-rgb), 0.28);
+
+    --border-tabbar: #0a111c;
+    --border-divider: #2a3a52;
+    --border-regular-control: #3a4d69;
+    --border-control-focus: var(--aero-accent);
+    --border-sidebar: var(--border-tabbar);
+    --border-sidebar-icon: #3a4d69;
+
+    --text-normal: rgba(236, 242, 250, 0.92);
+    --text-normal-pressed: rgba(236, 242, 250, 0.96);
+    --text-secondary: rgba(236, 242, 250, 0.64);
+    --text-tertiary: rgba(236, 242, 250, 0.44);
+    --text-link: #86bdff;
+    --text-inverse: #fff;
+    --text-contrast-background: #fff;
+    --text-negative: #f87171;
+    --icon-normal: rgba(236, 242, 250, 0.9);
+
+    --disabled-element-opacity: .35;
+    --theme-inverted-image-filter: invert(1);
+    --shadow-sidebar-item-pressed: 0 0 8px var(--aero-glow-color);
+
+    --chb-check-mark-background: #fff;
+    --chb-background-normal: var(--background-normal);
+    --chb-background-checked: var(--aero-accent);
+    --chb-border-normal: var(--border-regular-control);
+    --chb-border-checked: var(--aero-accent);
+}
+
+/* ── Aero Glass Light ───────────────────────────────────────────────────── */
+:root .theme-aero-light.theme-type-light, :root .theme-matte-light.theme-type-light {
+    --aero-accent: rgb(var(--aero-accent-rgb));
+    --aero-glow-color: rgba(var(--aero-accent-rgb), 0.55);
+    --aero-edge: rgba(255, 255, 255, 0.95);
+    --aero-gloss: 1;
+    --aero-shadow: rgba(15, 40, 70, 0.38);
+
+    --background-normal: #c6d7e8;
+    --background-tabbar: #a8c3de;
+    --background-button: #dde8f3;
+    --background-primary-button: var(--aero-accent);
+    --background-accent-button: var(--aero-accent);
+    --background-scroll-thumb: #9ab6d1;
+    --background-action-panel: #d3e1ee;
+    --background-icon-normal: #e4edf6;
+    --background-normal-element: #cfdded;
+    --background-normal-element-light: #d9e5f1;
+
+    --highlight-button-hover: rgba(var(--aero-accent-rgb), 0.16);
+    --highlight-button-pressed: rgba(var(--aero-accent-rgb), 0.28);
+    --highlight-button-pressed-hover: rgba(var(--aero-accent-rgb), 0.36);
+    --highlight-accent-button-hover: rgba(var(--aero-accent-rgb), 0.85);
+    --highlight-accent-button-pressed: rgba(var(--aero-accent-rgb), 0.7);
+    --highlight-primary-button-hover: rgba(var(--aero-accent-rgb), 0.85);
+    --highlight-primary-button-pressed: rgba(var(--aero-accent-rgb), 0.7);
+    --highlight-header-button-hover: rgba(255, 255, 255, 0.3);
+    --highlight-text-select: rgba(var(--aero-accent-rgb), 0.35);
+    --highlight-scroll-thumb-hover: #86a6c6;
+    --highlight-scroll-track-hover: rgba(0, 0, 0, 0.03);
+    --highlight-sidebar-item-pressed: rgba(255, 255, 255, 0.8);
+
+    --border-tabbar: #6f93b8;
+    --border-divider: #94b1cd;
+    --border-regular-control: #7497bb;
+    --border-control-focus: var(--aero-accent);
+    --border-sidebar: var(--border-tabbar);
+    --border-sidebar-icon: #94b1cd;
+
+    --text-normal: rgba(10, 24, 40, 0.92);
+    --text-normal-pressed: rgba(10, 24, 40, 0.96);
+    --text-secondary: rgba(10, 24, 40, 0.66);
+    --text-tertiary: rgba(10, 24, 40, 0.46);
+    --text-link: #1f5fb4;
+    --text-inverse: #fff;
+    --text-contrast-background: #fff;
+    --text-negative: #991b1b;
+    --icon-normal: rgba(10, 24, 40, 0.88);
+
+    --disabled-element-opacity: .4;
+    --theme-inverted-image-filter: none;
+    --shadow-sidebar-item-pressed: inset 0 1px 0 var(--aero-edge), 0 0 8px var(--aero-glow-color);
+
+    --chb-check-mark-background: #fff;
+    --chb-background-normal: #e6eef6;
+    --chb-background-checked: var(--aero-accent);
+    --chb-border-normal: var(--border-regular-control);
+    --chb-border-checked: var(--aero-accent);
+}
+
+/* ── Aero Glass Sepia (sandstorm) ─────────────────────────────────────── */
+:root .theme-aero-sepia.theme-type-light {  /* sandstorm */
+    --aero-accent: rgb(var(--aero-accent-rgb));
+    --aero-glow-color: rgba(var(--aero-accent-rgb), 0.55);
+    --aero-edge: rgba(255, 250, 238, 0.85);
+    --aero-gloss: 0.8;
+    --aero-shadow: rgba(60, 40, 15, 0.38);
+
+    --background-normal: #dccdb2;
+    --background-tabbar: #c8b390;
+    --background-button: #efe5d2;
+    --background-primary-button: var(--aero-accent);
+    --background-accent-button: var(--aero-accent);
+    --background-scroll-thumb: #c2ad88;
+    --background-action-panel: #e8dcc6;
+    --background-icon-normal: #f2e9d8;
+    --background-normal-element: #e3d7c1;
+    --background-normal-element-light: #ebe1ce;
+
+    --highlight-button-hover: rgba(var(--aero-accent-rgb), 0.16);
+    --highlight-button-pressed: rgba(var(--aero-accent-rgb), 0.28);
+    --highlight-button-pressed-hover: rgba(var(--aero-accent-rgb), 0.36);
+    --highlight-accent-button-hover: rgba(var(--aero-accent-rgb), 0.85);
+    --highlight-accent-button-pressed: rgba(var(--aero-accent-rgb), 0.7);
+    --highlight-primary-button-hover: rgba(var(--aero-accent-rgb), 0.85);
+    --highlight-primary-button-pressed: rgba(var(--aero-accent-rgb), 0.7);
+    --highlight-header-button-hover: rgba(255, 255, 255, 0.3);
+    --highlight-text-select: rgba(var(--aero-accent-rgb), 0.35);
+    --highlight-scroll-thumb-hover: #ae9670;
+    --highlight-scroll-track-hover: rgba(0, 0, 0, 0.03);
+    --highlight-sidebar-item-pressed: rgba(255, 248, 235, 0.75);
+
+    --border-tabbar: #a8916c;
+    --border-divider: #c2ae8c;
+    --border-regular-control: #a58e69;
+    --border-control-focus: var(--aero-accent);
+    --border-sidebar: var(--border-tabbar);
+    --border-sidebar-icon: #c2ae8c;
+
+    --text-normal: rgba(46, 34, 20, 0.92);
+    --text-normal-pressed: rgba(46, 34, 20, 0.96);
+    --text-secondary: rgba(46, 34, 20, 0.66);
+    --text-tertiary: rgba(46, 34, 20, 0.46);
+    --text-link: #8a4b12;
+    --text-inverse: #fff;
+    --text-contrast-background: #fff;
+    --text-negative: #9a2a12;
+    --icon-normal: rgba(46, 34, 20, 0.88);
+
+    --disabled-element-opacity: .4;
+    --theme-inverted-image-filter: none;
+    --shadow-sidebar-item-pressed: inset 0 1px 0 var(--aero-edge), 0 0 8px var(--aero-glow-color);
+
+    --chb-check-mark-background: #fff;
+    --chb-background-normal: #f4ecdd;
+    --chb-background-checked: var(--aero-accent);
+    --chb-border-normal: var(--border-regular-control);
+    --chb-border-checked: var(--aero-accent);
+}
+
+/* ── Glass touches ──────────────────────────────────────────────────────── */
+:is(.theme-aero-dark, .theme-aero-light, .theme-aero-sepia) {
+    --aero-shine: linear-gradient(to bottom,
+        rgba(255, 255, 255, calc(var(--aero-gloss) * 0.55)) 0%,
+        rgba(255, 255, 255, calc(var(--aero-gloss) * 0.22)) 45%,
+        rgba(255, 255, 255, 0) 46%);
+}
+
+/* Sidebar: glass column with a glowing selected item. */
+:is(.theme-aero-dark, .theme-aero-light, .theme-aero-sepia) .tool-menu {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, calc(var(--aero-gloss) * 0.10)), rgba(255, 255, 255, 0) 40%);
+    box-shadow: inset -1px 0 0 var(--aero-edge);
+}
+:is(.theme-aero-dark, .theme-aero-light, .theme-aero-sepia) .tool-menu > li.menu-item.selected {
+    background-image: var(--aero-shine);
+    box-shadow: inset 0 1px 0 var(--aero-edge), 0 0 10px var(--aero-glow-color);
+}
+:is(.theme-aero-dark, .theme-aero-light, .theme-aero-sepia) .tool-menu > li.menu-item {
+    transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+
+/* Buttons: glossy with a soft glow on hover. */
+:is(.theme-aero-dark, .theme-aero-light, .theme-aero-sepia) .btn {
+    background-image: var(--aero-shine);
+    transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+:is(.theme-aero-dark, .theme-aero-light, .theme-aero-sepia) .btn:hover:not(:disabled) {
+    box-shadow: inset 0 1px 0 var(--aero-edge), 0 0 8px var(--aero-glow-color);
+}
+
+/* Dialogs (About, template preview, ...). */
+:is(.theme-aero-dark, .theme-aero-light, .theme-aero-sepia) dialog.dlg {
+    background-color: var(--background-action-panel);
+    color: var(--text-normal);
+    border-radius: 8px;
+    box-shadow: 0 12px 40px var(--aero-shadow), 0 0 8px var(--aero-glow-color), inset 0 1px 0 var(--aero-edge);
+}
+
+/* ── Interface font: Open Sans (bundled, OFL/Apache; default in every theme) ──
+ * The embedded browser only sees system fonts, so the bundled files are loaded here
+ * (copied to resources/aero/ui-fonts by apply-aero.py).
+ */
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-Light.ttf");     font-weight: 300; }
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-Regular.ttf");   font-weight: 400; }
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-Semibold.ttf");  font-weight: 600; }
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-Bold.ttf");      font-weight: 700; }
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-ExtraBold.ttf"); font-weight: 800; }
+:root body:is(.theme-type-light, .theme-type-dark) {
+    --font-family-base: "Open Sans", "Segoe UI", Arial, sans-serif;
+    --font-family-base-custom: "Open Sans", "Segoe UI", Arial, sans-serif;
+}
+
+/* ── Personalize (settings.js): interface fonts + accessibility ─────────── */
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("ui-fonts/AtkinsonHyperlegible-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("ui-fonts/AtkinsonHyperlegible-Bold.ttf");    font-weight: 700; }
+@font-face { font-family: "OpenDyslexic";          src: url("ui-fonts/OpenDyslexic-Regular.otf");         font-weight: 400; }
+@font-face { font-family: "OpenDyslexic";          src: url("ui-fonts/OpenDyslexic-Bold.otf");            font-weight: 700; }
+@font-face { font-family: "Noto Sans";             src: url("ui-fonts/NotoSans-Regular.ttf");             font-weight: 400; }
+@font-face { font-family: "Noto Sans";             src: url("ui-fonts/NotoSans-Bold.ttf");                font-weight: 700; }
+
+/* Reduce motion: no transitions or animations anywhere in the interface. */
+html.aero-reduce-motion *, html.aero-reduce-motion *::before, html.aero-reduce-motion *::after {
+    transition-duration: 0s !important; transition-delay: 0s !important;
+    animation-duration: 0s !important; animation-delay: 0s !important; animation-iteration-count: 1 !important;
+}
+/* Reduce transparency: solid menus and popups, no frosted blur. */
+html.aero-reduce-transparency .dropdown-menu,
+html.aero-reduce-transparency #aero-accent .aero-swatches,
+html.aero-reduce-transparency dialog.dlg {
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    background-color: var(--background-normal) !important;
+}
+html.aero-reduce-transparency body { --aero-sheen: 0 !important; }
+/* High-contrast glass: little gloss, full-strength text and firm borders. */
+html.aero-high-contrast body {
+    --aero-gloss: 0.15 !important; --aero-sheen: 0 !important;
+    --text-secondary: var(--text-normal) !important; --text-tertiary: var(--text-normal) !important;
+    --border-regular-control: var(--text-secondary) !important; --border-divider: var(--text-tertiary) !important;
+}
+/* Strong focus rings for keyboard users. */
+html.aero-strong-focus :focus-visible {
+    outline: 3px solid var(--aero-accent, #1e6fd9) !important; outline-offset: 2px !important;
+    box-shadow: 0 0 0 6px rgba(var(--aero-accent-rgb, 30, 111, 217), 0.35) !important;
+}
+
+/* Matte themes: same palettes, no glass. */
+:root .theme-matte-dark.theme-type-dark, :root .theme-matte-light.theme-type-light { --aero-gloss: 0; }

@@ -528,6 +528,13 @@ Either download the 'common-files' CI artifact and pass -CommonDir, or rerun wit
 
     Remove-Item -Force "$converter\allfontsgen.exe", "$converter\allthemesgen.exe"
 
+    # Quill Office / Aero layer (aero\apply-aero.py): themes, Personalize, Task Launcher, Quill,
+    # extensions, fonts, templates, product name. Must run after step 9, whose overlay of the
+    # stock common content would otherwise undo it. Idempotent; needs Python 3.
+    Write-Step "9c. Quill Office customizations (aero\apply-aero.py)"
+    & python (Join-Path $RepoRoot 'aero\apply-aero.py') $InstallDir
+    Assert-LastExit "apply-aero.py"
+
     # ───────────────────────── 10/11. packaging ─────────────────────────────
     if ($SkipPackaging) {
         Write-Step "Packaging skipped (-SkipPackaging). Build output is at: $InstallDir"
@@ -543,6 +550,19 @@ Either download the 'common-files' CI artifact and pass -CommonDir, or rerun wit
                 -ProductName $ProductName `
                 -SourceDir   $InstallDir
             Assert-LastExit "make.ps1"
+
+            # The install step also deploys Qt's debug DLLs (Qt6Cored.dll...: ~200 MB the app
+            # never loads) and .pdb symbols; aero\apply-aero.py leaves *.orig backups. Drop them
+            # from the staged package only (the install dir keeps them).
+            Write-Step "10b. Trim debug files from the package"
+            $stage = Join-Path $PackageDir "build\$Arch\desktop"
+            $trim = @(Get-ChildItem $stage -Recurse -File -Include *.pdb, *.orig)
+            $trim += Get-ChildItem $stage -Recurse -File -Filter *d.dll | Where-Object {
+                Test-Path (Join-Path $_.DirectoryName ($_.BaseName.Substring(0, $_.BaseName.Length - 1) + '.dll'))
+            }
+            $mb = [math]::Round((($trim | Measure-Object Length -Sum).Sum) / 1MB)
+            $trim | Remove-Item -Force
+            Write-Host "Removed $($trim.Count) files ($mb MB)"
 
             Write-Step "11a. Build ZIP (make_zip.ps1)"
             $env:PATH = "$SevenZipRoot;$env:PATH"

@@ -1,0 +1,98 @@
+/* personalize.css: the start page's Personalize panel (all themes). */
+.aero-personalize {
+    --tp-accent: var(--aero-accent, var(--background-accent-button, #4473ca));
+    --tp-glow: var(--aero-glow-color, rgba(68, 115, 202, 0.35));
+    --tp-edge: var(--aero-edge, rgba(255, 255, 255, 0.4));
+    padding: 24px 32px 32px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: var(--text-normal);
+}
+.aero-p-head .table-caption { margin: 0; }
+.aero-p-head, .aero-p-hint { text-align: left; }
+.aero-p-hint { margin: 4px 0 12px; font-size: 12px; color: var(--text-secondary); }
+
+.aero-p-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); align-items: start; }
+.aero-p-card {
+    padding: 14px 18px 16px; border-radius: 12px;
+    background-color: var(--background-normal-element-light, var(--background-normal));
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, calc(var(--aero-gloss, 0) * 0.12)), rgba(255, 255, 255, 0) 40%);
+    border: 1px solid var(--border-divider);
+    box-shadow: inset 0 1px 0 var(--tp-edge);
+}
+.aero-p-card h4 { margin: 0 0 10px; font-size: 14px; font-weight: 600; }
+
+.aero-p-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 8px 0; }
+.aero-p-label { font-size: 13px; }
+.aero-p-row select {
+    min-width: 190px; height: 28px; padding: 0 8px; border-radius: 6px; font-size: 13px;
+    color: var(--text-normal); background: var(--background-normal); border: 1px solid var(--border-regular-control);
+}
+.aero-p-check { display: flex; align-items: center; gap: 8px; margin: 8px 0; font-size: 13px; cursor: pointer; }
+.aero-p-check input { width: 16px; height: 16px; accent-color: var(--tp-accent); }
+
+.aero-p-swatches { display: flex; gap: 6px; }
+.aero-p-swatch {
+    width: 22px; height: 22px; padding: 0; cursor: pointer; border-radius: 50%;
+    border: 2px solid transparent; background: radial-gradient(circle at 35% 30%, #fff 0, var(--sw) 60%);
+}
+.aero-p-swatch[aria-checked="true"] { border-color: var(--text-normal); box-shadow: 0 0 8px var(--sw); }
+
+.aero-p-slider { display: flex; align-items: center; gap: 8px; }
+.aero-p-slider input[type=range] { width: 170px; accent-color: var(--tp-accent); }
+.aero-p-slider output { min-width: 48px; text-align: right; font-size: 12px; color: var(--text-secondary); }
+
+.aero-p-buttons { display: flex; gap: 8px; margin-top: 12px; }
+
+.aero-p-export {
+    width: 100%; height: 150px; margin-top: 10px; box-sizing: border-box; font: 12px/1.4 Consolas, monospace;
+    color: var(--text-normal); background: var(--background-normal); border: 1px solid var(--border-regular-control); border-radius: 6px;
+}
+
+.aero-personalize button:focus-visible, .aero-personalize select:focus-visible, .aero-personalize input:focus-visible {
+    outline: 2px solid var(--tp-accent); outline-offset: 2px;
+}
+
+/* Buttons: own style (the start page's .btn is white-on-white in dark themes). */
+.aero-p-btn {
+    height: auto; min-height: 28px; padding: 4px 14px; line-height: normal; cursor: pointer;
+    font: inherit; font-size: 13px; border-radius: 6px;
+    color: var(--text-normal);
+    background-color: var(--background-normal-element, var(--background-normal));
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, calc(var(--aero-gloss, 0.3) * 0.35)) 0%,
+        rgba(255, 255, 255, calc(var(--aero-gloss, 0.3) * 0.12)) 45%, rgba(255, 255, 255, 0) 46%);
+    border: 1px solid var(--border-regular-control);
+    transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+.aero-p-btn:hover { border-color: var(--tp-accent); box-shadow: 0 0 8px var(--tp-glow); }
+.aero-p-btn:active { box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35); }
+
+/* Interface color rows */
+.aero-p-colorrow { display: grid; grid-template-columns: 130px 1fr; gap: 6px 12px; align-items: center; margin: 10px 0; }
+.aero-p-colorrow .aero-p-hue { grid-column: 2; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary); }
+.aero-p-hue input[type=range] {
+    width: 190px; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px;
+    background: linear-gradient(to right, hsl(0,45%,45%), hsl(60,45%,45%), hsl(120,45%,45%), hsl(180,45%,45%), hsl(240,45%,45%), hsl(300,45%,45%), hsl(359,45%,45%));
+}
+.aero-p-hue input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+    background: #fff; border: 2px solid var(--tp-accent); box-shadow: 0 0 6px var(--tp-glow);
+}
+
+/* Shortcut table */
+.aero-p-keys { border-collapse: collapse; width: 100%; font-size: 13px; }
+.aero-p-keys td { padding: 4px 6px; border-bottom: 1px solid var(--border-divider); }
+.aero-p-keys kbd {
+    display: inline-block; padding: 1px 6px; border-radius: 4px; font: 12px/1.5 inherit; white-space: nowrap;
+    background: var(--background-normal); border: 1px solid var(--border-regular-control); box-shadow: 0 1px 0 var(--border-regular-control);
+}
+.aero-p-font { max-width: 230px; }
+
+/* Interface color: one block that stays inside its card. */
+.aero-p-card { min-width: 0; overflow: hidden; }
+.aero-p-colorblock { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.aero-p-colors { flex-wrap: wrap; gap: 8px; }
+.aero-p-colors .aero-p-swatch { width: 26px; height: 26px; background: var(--sw); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+.aero-p-colorblock .aero-p-hue { display: flex; align-items: center; gap: 10px; }
+.aero-p-colorblock .aero-p-hue input[type=range] { flex: 1; width: auto; min-width: 0; }

@@ -1,0 +1,67 @@
+{
+    "name": "Clipboard History",
+    "guid": "asc.{9E1D2C3B-4A5F-4B6C-8D7E-1F2A3B4C5D03}",
+    "version": "1.0.0",
+    "baseUrl": "",
+    "variations": [
+        {
+            "description": "Your last 30 copied items: click to paste again, pin favorites, search, pause or clear.",
+            "url": "index.html",
+            "icons": [
+                "resources/light/icon.png",
+                "resources/light/icon@2x.png"
+            ],
+            "icons2": [
+                {
+                    "style": "light",
+                    "100%": {
+                        "normal": "resources/light/icon.png"
+                    },
+                    "125%": {
+                        "normal": "resources/light/icon@1.25x.png"
+                    },
+                    "150%": {
+                        "normal": "resources/light/icon@1.5x.png"
+                    },
+                    "175%": {
+                        "normal": "resources/light/icon@1.75x.png"
+                    },
+                    "200%": {
+                        "normal": "resources/light/icon@2x.png"
+                    }
+                },
+                {
+                    "style": "dark",
+                    "100%": {
+                        "normal": "resources/dark/icon.png"
+                    },
+                    "125%": {
+                        "normal": "resources/dark/icon@1.25x.png"
+                    },
+                    "150%": {
+                        "normal": "resources/dark/icon@1.5x.png"
+                    },
+                    "175%": {
+                        "normal": "resources/dark/icon@1.75x.png"
+                    },
+                    "200%": {
+                        "normal": "resources/dark/icon@2x.png"
+                    }
+                }
+            ],
+            "isViewer": false,
+            "EditorsSupport": [
+                "word",
+                "cell",
+                "slide"
+            ],
+            "isVisual": true,
+            "isModal": false,
+            "isInsideMode": true,
+            "initDataType": "none",
+            "initData": "",
+            "isUpdateOleOnResize": false,
+            "buttons": []
+        }
+    ]
+}

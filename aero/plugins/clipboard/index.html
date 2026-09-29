@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clipboard History</title>
+    <link rel="stylesheet" href="../v1/plugins.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="../v1/plugins.js"></script>
+    <script src="../v1/plugins-ui.js"></script>
+    <script src="code.js"></script>
+</head>
+<body>
+    <main class="qp">
+        <div class="row">
+            <input type="search" id="search" placeholder="Search copied items…" aria-label="Search copied items">
+        </div>
+        <div class="row">
+            <button type="button" id="pause" class="btn-text-default" aria-pressed="false">Pause history</button>
+            <button type="button" id="clear" class="btn-text-default">Clear (keeps pinned)</button>
+        </div>
+        <p id="state" class="hint" role="status" aria-live="polite"></p>
+        <div id="list" class="list"></div>
+        <p class="hint">Copy (Ctrl+C) or cut (Ctrl+X) in any document, spreadsheet or presentation and it appears here. History stays on this computer.</p>
+    </main>
+</body>
+</html>

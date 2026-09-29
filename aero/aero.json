@@ -1,0 +1,17 @@
+{
+    "_help": "Aero add-on settings. After editing, run: python aero/apply-aero.py. defaultDocumentFont is the body font of every new blank document (the app's converter/empty/*/new.docx). blankFonts are the choices in the Task Launcher's 'Blank document' font menu.",
+    "defaultDocumentFont": "Courier Prime",
+    "blankFonts": [
+        "Courier Prime",
+        "Arial",
+        "Noto Sans",
+        "Noto Serif",
+        "Inter",
+        "Lato",
+        "EB Garamond",
+        "Gelasio",
+        "Comic Neue",
+        "Atkinson Hyperlegible",
+        "OpenDyslexic"
+    ]
+}

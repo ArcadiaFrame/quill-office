@@ -1,0 +1,663 @@
+/*
+ * aero.css: Vista / Office 2007 "Aero" override theme for the Euro-Office editors.
+ * Loaded after each editor's app.css (hooked in by aero/apply-aero.py, together with aero.js).
+ * Edit THIS file (aero/aero.css), then re-run apply-aero.py.
+ *
+ * Modes: pick a theme in Settings > Interface theme.
+ *   Stock themes (Light, Dark, ...) = flat / original look (this file does nothing).
+ *   "Aero Glass Light" / "Dark" / "Sepia" = glass look (aero/uithemes/*.json set the
+ *   base colors; this file adds icons, accent, gloss, glass, glow and motion on top).
+ * Accent: chosen with the swatch button in the status bar (aero.js), which sets
+ *   <html data-aero-accent="...">. Light: tints header/ribbon/highlights slightly.
+ *   Dark and Sepia: sets the highlight and glow color only.
+ *
+ * Selectors start with ":root body.theme-aero-*" so they outrank the stock
+ * ":root .theme-type-dark" / ":root .theme-aero-*" variable blocks.
+ */
+
+/* ── Tunable variables ──────────────────────────────────────────────────── */
+:root body:is(.theme-aero-light, .theme-matte-light) {
+    --aero-accent-rgb:  61, 142, 230;               /* overridden by accent presets */
+    --aero-tint-header: #6d9cc6;                    /* light mode: header strip (muted cerulean) */
+    --aero-tint-ribbon: #a7c4df;                    /* light mode: ribbon body (soft azure) */
+    --aero-glass:       rgba(255, 255, 255, 0.50);  /* panel glass tint */
+    --aero-edge:        rgba(255, 255, 255, 0.85);  /* top highlight rim */
+    --aero-popup:       rgba(214, 228, 241, 0.9);  /* menus and dropdowns */
+    --aero-shadow:      rgba(15, 40, 70, 0.38);
+    --aero-gloss:       1;      /* 0 = matte, 1 = full shine */
+    --aero-sheen:       0.22;   /* diagonal reflection strength */
+    --aero-blur:        14px;   /* frosted blur behind menus */
+    --aero-radius:      4px;
+    --aero-glow:        7px;
+    --aero-glow-alpha:  0.55;
+    --aero-speed:       160ms;
+}
+
+:root body:is(.theme-aero-dark, .theme-matte-dark) {
+    --aero-accent-rgb:  61, 142, 230;
+    --aero-glass:       rgba(255, 255, 255, 0.05);
+    --aero-edge:        rgba(255, 255, 255, 0.14);
+    --aero-popup:       rgba(20, 30, 46, 0.88);
+    --aero-shadow:      rgba(0, 0, 0, 0.6);
+    --aero-gloss:       0.45;   /* lower in dark mode so highlights don't wash out text */
+    --aero-sheen:       0.06;
+    --aero-blur:        16px;
+    --aero-radius:      4px;
+    --aero-glow:        8px;
+    --aero-glow-alpha:  0.5;
+    --aero-speed:       160ms;
+}
+
+:root body.theme-aero-sepia {
+    --aero-accent-rgb:  196, 128, 48;               /* warm amber until another accent is picked */
+    --aero-tint-header: #b9a27c;                    /* sandstone header strip */
+    --aero-tint-ribbon: #d8c7a6;                    /* parchment ribbon */
+    --aero-glass:       rgba(255, 248, 235, 0.40);
+    --aero-edge:        rgba(255, 250, 238, 0.85);
+    --aero-popup:       rgba(240, 230, 212, 0.9);
+    --aero-shadow:      rgba(60, 40, 15, 0.38);
+    --aero-gloss:       0.8;
+    --aero-sheen:       0.18;
+    --aero-blur:        14px;
+    --aero-radius:      4px;
+    --aero-glow:        7px;
+    --aero-glow-alpha:  0.5;
+    --aero-speed:       160ms;
+}
+
+/* ── Accent presets (aero.js sets html[data-aero-accent]) ─────────────── */
+/* Accent color only (highlights and glow). The chrome color is the Personalize interface color (settings.js). */
+html[data-aero-accent="aqua"] body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) { --aero-accent-rgb:  32, 178, 196; }
+html[data-aero-accent="emerald"] body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) { --aero-accent-rgb:  46, 170,  96; }
+html[data-aero-accent="violet"] body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) { --aero-accent-rgb: 140, 110, 220; }
+html[data-aero-accent="rose"] body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) { --aero-accent-rgb: 222,  88, 128; }
+html[data-aero-accent="amber"] body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) { --aero-accent-rgb: 235, 160,  40; }
+html[data-aero-accent="graphite"] body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) { --aero-accent-rgb: 140, 150, 165; }
+
+@media (prefers-reduced-motion: reduce) {
+    :root body.theme-aero-light, :root body.theme-aero-dark, :root body.theme-aero-sepia, :root body.theme-matte-light, :root body.theme-matte-dark { --aero-speed: 0ms; }
+}
+
+/* Derived values (don't edit; tune the variables above). */
+:root body.theme-aero-light, :root body.theme-aero-dark, :root body.theme-aero-sepia, :root body.theme-matte-light, :root body.theme-matte-dark {
+    --aero-accent:      rgb(var(--aero-accent-rgb));
+    --aero-glow-color:  rgba(var(--aero-accent-rgb), var(--aero-glow-alpha));
+    /* Glass: bright upper half with a hard edge, clear lower half, faint rim at the bottom. */
+    --aero-shine-strong: linear-gradient(to bottom,
+        rgba(255, 255, 255, calc(var(--aero-gloss) * 0.60)) 0%,
+        rgba(255, 255, 255, calc(var(--aero-gloss) * 0.28)) 45%,
+        rgba(255, 255, 255, 0) 46%,
+        rgba(255, 255, 255, 0) 85%,
+        rgba(255, 255, 255, calc(var(--aero-gloss) * 0.18)) 100%);
+    --aero-shine-soft: linear-gradient(to bottom,
+        rgba(255, 255, 255, calc(var(--aero-gloss) * 0.35)) 0%,
+        rgba(255, 255, 255, 0) 55%);
+    --aero-sheen-img: linear-gradient(115deg,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, var(--aero-sheen)) 46%,
+        rgba(255, 255, 255, 0) 62%);
+}
+
+/* ── Icons: use the modern (v2) sprite set like the stock Light/Dark themes ─ */
+:root body.theme-aero-light, :root body.theme-aero-dark, :root body.theme-aero-sepia, :root body.theme-matte-light, :root body.theme-matte-dark {
+    --sprite-button-icons-base-url: ../img/v2;
+    --sprite-button-icons-uid: mod25;
+    --sprite-button-small-width: 48px;
+    --x-small-btn-icon-size: 24px;
+    --component-normal-icon-opacity: 1;
+    --component-hover-icon-opacity: 1;
+    --header-component-normal-icon-opacity: 1;
+    --header-component-hover-icon-opacity: 1;
+}
+:root body:is(.theme-aero-light, .theme-matte-light, .theme-aero-sepia) {
+    --button-header-normal-icon-offset-x: 0;
+    --button-header-active-icon-offset-x: 0;
+    --icon-normal: #2c3a4c;
+    --icon-normal-pressed: #2c3a4c;
+    --icon-toolbar-header: #1c2b40;
+    --icon-gray-primary: #383838;
+    --icon-gray-secondary: #969696;
+    --icon-blue-primary: #2f67c4;
+    --icon-blue-secondary: #dce7fa;
+    --icon-red: #d93a3a;
+    --icon-success: #2e8b57;
+}
+:root body:is(.theme-aero-dark, .theme-matte-dark) {
+    --button-small-normal-icon-offset-x: -24px;
+    --button-small-active-icon-offset-x: -24px;
+    --button-header-normal-icon-offset-x: -24px;
+    --button-header-active-icon-offset-x: -24px;
+    --component-normal-icon-filter: invert(100%);
+    --image-border-types-filter: invert(100%) brightness(4);
+    --image-border-types-filter-selected: invert(100%) brightness(4);
+    --icon-normal: #eaeef3;
+    --icon-normal-pressed: #eaeef3;
+    --icon-toolbar-header: #eaeef3;
+    --icon-gray-primary: #eaeaea;
+    --icon-gray-secondary: #f3f3f3;
+    --icon-blue-primary: #92b7f0;
+    --icon-blue-secondary: #b7cff5;
+    --icon-red: #fca5a5;
+    --icon-success: #78b588;
+}
+
+/* ── Base palettes ─────────────────────────────────────────────────────────
+ * The editors don't apply a custom theme's JSON colors reliably (they fall back to
+ * the stock dark/light greys), so the full palette is defined here.
+ */
+:root body:is(.theme-aero-dark, .theme-matte-dark) {                      /* deep brilliant navy */
+    --toolbar-header-document:     #0e1624;
+    --toolbar-header-spreadsheet:  #0e1624;
+    --toolbar-header-presentation: #0e1624;
+    --toolbar-header-pdf:          #0e1624;
+    --toolbar-header-visio:        #0e1624;
+    --text-toolbar-header-on-background-document:     #e6eef8;
+    --text-toolbar-header-on-background-spreadsheet:  #e6eef8;
+    --text-toolbar-header-on-background-presentation: #e6eef8;
+    --text-toolbar-header-on-background-pdf:          #e6eef8;
+    --text-toolbar-header-on-background-visio:        #e6eef8;
+    --text-toolbar-header: #e6eef8;
+
+    --background-normal:              #172131;
+    --background-toolbar:             #1b2839;
+    --background-toolbar-tab:         #1b2839;
+    --background-toolbar-additional:  #182334;
+    --background-pane:                #141d2b;
+    --background-pane-additional:     #141d2b;
+    --background-statusbar:           #121a27;
+    --background-contrast-popover:    #1b2839;
+    --background-notification-popover:#223350;
+    --background-primary-dialog-button: var(--aero-accent);
+    --background-accent-button:       var(--aero-accent);
+    --background-fill-input:          #121a27;
+    --background-loader:              rgba(10, 16, 26, 0.9);
+
+    --highlight-button-hover:          rgba(130, 180, 255, 0.14);
+    --highlight-header-button-hover:   rgba(130, 180, 255, 0.16);
+    --highlight-header-button-pressed: rgba(130, 180, 255, 0.28);
+    --highlight-primary-dialog-button-hover: rgba(var(--aero-accent-rgb), 0.85);
+    --highlight-text-select:           rgba(var(--aero-accent-rgb), 0.55);
+
+    --border-toolbar:              #2a3a52;
+    --border-toolbar-active-panel-top: #1b2839;
+    --border-divider:              #2a3a52;
+    --border-regular-control:      #3a4d69;
+    --border-color-shading:        rgba(130, 180, 255, 0.18);
+
+    --text-normal:     rgba(236, 243, 252, 0.92);
+    --text-normal-pressed: rgba(236, 243, 252, 0.96);
+    --text-secondary:  rgba(236, 243, 252, 0.64);
+    --text-tertiary:   rgba(236, 243, 252, 0.44);
+    --text-link:       #86bdff;
+
+    --canvas-background:               #0f1724;
+    --canvas-ruler-background:         #172131;
+    --canvas-ruler-border:             #2a3a52;
+    --canvas-ruler-margins-background: #22324a;
+    --canvas-ruler-mark:               #9fb3cf;
+    --canvas-ruler-handle-border:      #9fb3cf;
+    --canvas-cell-title-background:          #172131;
+    --canvas-cell-title-background-hover:    #22324a;
+    --canvas-cell-title-background-selected: #2b4163;
+    --canvas-cell-title-border:              #2a3a52;
+    --canvas-cell-title-text:                #b8c7dc;
+    --canvas-scroll-thumb:        #1f2d42;
+    --canvas-scroll-thumb-hover:  #2d4060;
+    --canvas-scroll-thumb-border: #2a3a52;
+}
+
+:root body:is(.theme-aero-light, .theme-matte-light) {                     /* muted deep azure / cerulean */
+    --background-normal:             #c9d9e8;
+    --background-toolbar-additional: #bcd0e3;
+    --background-pane:               #c3d5e6;
+    --background-pane-additional:    #c3d5e6;
+    --background-contrast-popover:   #d6e4f1;
+    --background-fill-input:         #e6eef6;
+    --background-primary-dialog-button: var(--aero-accent);
+    --background-accent-button:      var(--aero-accent);
+    --border-toolbar:                #6f93b8;
+    --border-divider:                #94b1cd;
+    --border-regular-control:        #7497bb;
+    --canvas-background:             #a9c0d6;
+    --canvas-ruler-background:       #dde8f3;
+    --text-toolbar-header:           #0c1a2b;
+    --text-toolbar-header-on-background-document:     #0c1a2b;
+    --text-toolbar-header-on-background-spreadsheet:  #0c1a2b;
+    --text-toolbar-header-on-background-presentation: #0c1a2b;
+    --text-toolbar-header-on-background-pdf:          #0c1a2b;
+    --text-toolbar-header-on-background-visio:        #0c1a2b;
+    --text-normal:     rgba(10, 24, 40, 0.92);
+    --text-secondary:  rgba(10, 24, 40, 0.66);
+    --text-tertiary:   rgba(10, 24, 40, 0.46);
+    --icon-normal:     #13263d;
+    --icon-normal-pressed: #13263d;
+    --icon-toolbar-header: #0c1a2b;
+}
+
+:root body.theme-aero-sepia {                     /* sandstorm: warm parchment and sandstone */
+    --toolbar-header-document:     var(--aero-tint-header);
+    --toolbar-header-spreadsheet:  var(--aero-tint-header);
+    --toolbar-header-presentation: var(--aero-tint-header);
+    --toolbar-header-pdf:          var(--aero-tint-header);
+    --toolbar-header-visio:        var(--aero-tint-header);
+    --text-toolbar-header-on-background-document:     #2e2214;
+    --text-toolbar-header-on-background-spreadsheet:  #2e2214;
+    --text-toolbar-header-on-background-presentation: #2e2214;
+    --text-toolbar-header-on-background-pdf:          #2e2214;
+    --text-toolbar-header-on-background-visio:        #2e2214;
+    --text-toolbar-header:           #2e2214;
+    --background-normal:             #e3d7c1;
+    --background-toolbar-additional: #dccdb2;
+    --background-pane:               #dbcdb3;
+    --background-pane-additional:    #dbcdb3;
+    --background-contrast-popover:   #efe5d2;
+    --background-notification-popover: #f3e6c8;
+    --background-fill-input:         #f4ecdd;
+    --background-primary-dialog-button: var(--aero-accent);
+    --background-accent-button:      var(--aero-accent);
+    --border-toolbar:                #a8916c;
+    --border-divider:                #c2ae8c;
+    --border-regular-control:        #a58e69;
+    --canvas-background:             #dbc495;   /* soft sand */
+    --canvas-ruler-background:       #efe5d2;
+    --canvas-ruler-margins-background: #d6c6a6;
+    --text-normal:     rgba(46, 34, 20, 0.92);
+    --text-normal-pressed: rgba(46, 34, 20, 0.96);
+    --text-secondary:  rgba(46, 34, 20, 0.66);
+    --text-tertiary:   rgba(46, 34, 20, 0.46);
+    --text-link:       #8a4b12;
+    --icon-normal:     #3d2e1c;
+    --icon-normal-pressed: #3d2e1c;
+    --icon-toolbar-header: #2e2214;
+}
+
+/* ── Light + Sepia: tinted chrome and accent highlights ────────────────── */
+:root body:is(.theme-aero-light, .theme-matte-light, .theme-aero-sepia) {
+    --toolbar-header-document:     var(--aero-tint-header);
+    --toolbar-header-spreadsheet:  var(--aero-tint-header);
+    --toolbar-header-presentation: var(--aero-tint-header);
+    --toolbar-header-pdf:          var(--aero-tint-header);
+    --toolbar-header-visio:        var(--aero-tint-header);
+    --background-toolbar:          var(--aero-tint-ribbon);
+    --background-toolbar-tab:      var(--aero-tint-ribbon);
+    --background-statusbar:        var(--aero-tint-ribbon);
+    --highlight-button-hover:         rgba(var(--aero-accent-rgb), 0.20);
+    --highlight-button-pressed:       rgba(var(--aero-accent-rgb), 0.34);
+    --highlight-button-pressed-hover: rgba(var(--aero-accent-rgb), 0.42);
+    --border-control-focus:           var(--aero-accent);
+    --border-preview-select:          var(--aero-accent);
+}
+:root body:is(.theme-aero-dark, .theme-matte-dark) {
+    --highlight-button-pressed:       rgba(var(--aero-accent-rgb), 0.38);
+    --highlight-button-pressed-hover: rgba(var(--aero-accent-rgb), 0.46);
+    --border-control-focus:           var(--aero-accent);
+    --border-preview-select:          var(--aero-accent);
+}
+
+/* ── Header: document title and tab strip ──────────────────────────────── */
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) #box-document-title,
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .toolbar .tabs {
+    background-image: var(--aero-sheen-img), var(--aero-shine-strong);
+}
+
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .toolbar .tabs li {
+    transition: background-color var(--aero-speed) ease, box-shadow var(--aero-speed) ease;
+}
+
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .toolbar .tabs li.active {
+    border-radius: var(--aero-radius) var(--aero-radius) 0 0;
+    background-image: var(--aero-shine-soft);
+    box-shadow: inset 0 1px 0 var(--aero-edge), 0 -1px var(--aero-glow) var(--aero-glow-color);
+}
+
+/* ── Ribbon body: reflective glass ─────────────────────────────────────── */
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .toolbar .box-controls {
+    background-image: var(--aero-sheen-img), var(--aero-shine-strong);
+    box-shadow: inset 0 1px 0 var(--aero-edge), inset 0 -1px 0 rgba(0, 0, 0, 0.10);
+}
+
+/* ── Toolbar buttons: soft accent glow ─────────────────────────────────── */
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .btn-toolbar {
+    border-radius: var(--aero-radius);
+    transition: background-color var(--aero-speed) ease, box-shadow var(--aero-speed) ease;
+}
+
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .btn-toolbar:hover:not(.disabled) {
+    background-image: var(--aero-shine-strong);
+    box-shadow: inset 0 1px 0 var(--aero-edge), 0 0 var(--aero-glow) var(--aero-glow-color);
+}
+
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .btn-toolbar:active:not(.disabled),
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .btn-toolbar.active:not(.disabled) {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0) 60%);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35), 0 0 calc(var(--aero-glow) * 0.6) var(--aero-glow-color);
+}
+
+/* ── Side panels and status bar ────────────────────────────────────────── */
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) #left-menu,
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) #right-menu,
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .statusbar {
+    background-image: linear-gradient(to bottom, var(--aero-glass), rgba(255, 255, 255, 0));
+    box-shadow: inset 0 1px 0 var(--aero-edge);
+}
+
+/* ── Menus and dropdowns: frosted glass ────────────────────────────────── */
+/* The blur sits on a ::before layer, NOT on the menu: backdrop-filter on an element makes it the
+   containing block of its position:fixed descendants, and the editor positions submenus
+   (Formatting as Style, AI, Paragraph…) with position:fixed in window coordinates. Blur on the
+   menu itself pushed every submenu outside its parent and clipped it: empty submenus. */
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .dropdown-menu {
+    background-color: var(--aero-popup);
+    border-radius: var(--aero-radius);
+    box-shadow: 0 8px 24px var(--aero-shadow), inset 0 1px 0 var(--aero-edge);
+}
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .dropdown-menu::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
+    -webkit-backdrop-filter: blur(var(--aero-blur)) saturate(140%);
+    backdrop-filter: blur(var(--aero-blur)) saturate(140%);
+}
+
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .open > .dropdown-menu {
+    animation: aero-pop var(--aero-speed) ease-out;
+}
+
+/* ── Dialogs ───────────────────────────────────────────────────────────── */
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .asc-window {
+    border-radius: calc(var(--aero-radius) + 2px);
+    box-shadow: 0 12px 40px var(--aero-shadow), 0 0 var(--aero-glow) var(--aero-glow-color);
+}
+
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia) .asc-window > .header {
+    background-image: var(--aero-sheen-img), var(--aero-shine-strong);
+}
+
+@keyframes aero-pop {
+    from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ── Accent picker (status bar swatch, built by aero.js) ───────────────── */
+#aero-accent { display: none; }
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia, body.theme-matte-light, body.theme-matte-dark) #aero-accent {
+    display: block; position: fixed; right: 150px; bottom: 5px; z-index: 1000;
+}
+#aero-accent > button {
+    width: 16px; height: 16px; padding: 0; cursor: pointer;
+    border-radius: 50%; border: 1px solid var(--aero-edge);
+    background: radial-gradient(circle at 35% 30%, #fff 0, var(--aero-accent) 55%);
+    box-shadow: 0 0 var(--aero-glow) var(--aero-glow-color);
+}
+#aero-accent .aero-swatches {
+    position: absolute; right: -6px; bottom: 24px; display: flex; gap: 6px; padding: 8px;
+    background: var(--aero-popup); border-radius: calc(var(--aero-radius) + 2px);
+    -webkit-backdrop-filter: blur(var(--aero-blur)); backdrop-filter: blur(var(--aero-blur));
+    box-shadow: 0 8px 24px var(--aero-shadow), inset 0 1px 0 var(--aero-edge);
+    animation: aero-pop var(--aero-speed) ease-out;
+}
+#aero-accent .aero-swatches[hidden] { display: none; }
+#aero-accent .aero-swatches button {
+    width: 20px; height: 20px; padding: 0; cursor: pointer; border-radius: 50%;
+    border: 2px solid transparent;
+    background: radial-gradient(circle at 35% 30%, #fff 0, var(--sw) 60%);
+}
+#aero-accent .aero-swatches button[aria-pressed="true"] {
+    border-color: var(--text-normal);
+    box-shadow: 0 0 6px var(--sw);
+}
+
+/* ── Papyrus page: warm paper tone over the document (easy on the eyes) ────
+ * A click-through multiply overlay: white paper becomes papyrus, dark text stays dark.
+ * Toggled by aero.js (html.aero-papyrus): the "Papyrus page" checkbox in the accent
+ * popover (all editors), and in Sepia the View tab's Dark Document button, which Sepia
+ * repurposes because dark content mode doesn't fit a sepia theme.
+ */
+:root body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) { --aero-papyrus: #e9d8b3; }
+html.aero-papyrus body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) #editor_sdk {
+    position: relative;
+}
+html.aero-papyrus body:is(.theme-aero-light, .theme-aero-dark, .theme-aero-sepia, .theme-matte-light, .theme-matte-dark) #editor_sdk::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--aero-papyrus);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 5;
+}
+#aero-accent .aero-panel-row { display: flex; gap: 6px; }
+#aero-accent .aero-swatches { flex-direction: column; gap: 8px; }
+#aero-accent .aero-check {
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    color: var(--text-normal); font-size: 12px; cursor: pointer;
+}
+/* The overlay also multiplies the area around the page; lighten it so the result stays soft.
+   (The editor reads canvas colors when a document opens, so this may need a reopen.) */
+html.aero-papyrus body.theme-aero-sepia { --canvas-background: #f0e7d4; }
+html.aero-papyrus body.theme-aero-light { --canvas-background: #c3d6e6; }
+html.aero-papyrus body.theme-aero-dark  { --aero-papyrus: #d9cfbd; }
+
+/* ── Interface font: Open Sans (bundled, OFL/Apache; default in every theme) ──
+ * The embedded browser only sees system fonts, so the bundled files are loaded here
+ * (copied to resources/aero/ui-fonts by apply-aero.py).
+ */
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-Light.ttf");     font-weight: 300; }
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-Regular.ttf");   font-weight: 400; }
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-Semibold.ttf");  font-weight: 600; }
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-Bold.ttf");      font-weight: 700; }
+@font-face { font-family: "Open Sans"; src: url("ui-fonts/OpenSans-ExtraBold.ttf"); font-weight: 800; }
+:root body:is(.theme-type-light, .theme-type-dark) {
+    --font-family-base: "Open Sans", "Segoe UI", Arial, sans-serif;
+    --font-family-base-custom: "Open Sans", "Segoe UI", Arial, sans-serif;
+}
+
+/* ── Personalize (settings.js): interface fonts + accessibility ─────────── */
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("ui-fonts/AtkinsonHyperlegible-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("ui-fonts/AtkinsonHyperlegible-Bold.ttf");    font-weight: 700; }
+@font-face { font-family: "OpenDyslexic";          src: url("ui-fonts/OpenDyslexic-Regular.otf");         font-weight: 400; }
+@font-face { font-family: "OpenDyslexic";          src: url("ui-fonts/OpenDyslexic-Bold.otf");            font-weight: 700; }
+@font-face { font-family: "Noto Sans";             src: url("ui-fonts/NotoSans-Regular.ttf");             font-weight: 400; }
+@font-face { font-family: "Noto Sans";             src: url("ui-fonts/NotoSans-Bold.ttf");                font-weight: 700; }
+
+/* Reduce motion: no transitions or animations anywhere in the interface. */
+html.aero-reduce-motion *, html.aero-reduce-motion *::before, html.aero-reduce-motion *::after {
+    transition-duration: 0s !important; transition-delay: 0s !important;
+    animation-duration: 0s !important; animation-delay: 0s !important; animation-iteration-count: 1 !important;
+}
+/* Reduce transparency: solid menus and popups, no frosted blur. */
+html.aero-reduce-transparency .dropdown-menu,
+html.aero-reduce-transparency .dropdown-menu::before,
+html.aero-reduce-transparency #aero-accent .aero-swatches,
+html.aero-reduce-transparency dialog.dlg {
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    background-color: var(--background-normal) !important;
+}
+html.aero-reduce-transparency body { --aero-sheen: 0 !important; }
+/* High-contrast glass: little gloss, full-strength text and firm borders. */
+html.aero-high-contrast body {
+    --aero-gloss: 0.15 !important; --aero-sheen: 0 !important;
+    --text-secondary: var(--text-normal) !important; --text-tertiary: var(--text-normal) !important;
+    --border-regular-control: var(--text-secondary) !important; --border-divider: var(--text-tertiary) !important;
+}
+/* Strong focus rings for keyboard users. */
+html.aero-strong-focus :focus-visible {
+    outline: 3px solid var(--aero-accent, #1e6fd9) !important; outline-offset: 2px !important;
+    box-shadow: 0 0 0 6px rgba(var(--aero-accent-rgb, 30, 111, 217), 0.35) !important;
+}
+#aero-accent .aero-panel-btn {
+    padding: 4px 10px; cursor: pointer; font: inherit; font-size: 12px; text-align: left;
+    color: var(--text-normal); background: transparent; border: 1px solid var(--border-regular-control); border-radius: 6px;
+}
+#aero-accent .aero-panel-btn:hover { box-shadow: 0 0 8px var(--aero-glow-color); border-color: var(--aero-accent); }
+
+/* ── Matte Dark / Matte Light: the Aero palettes without glass ─────────────
+ * They share every color, icon and accent rule above; the glass rules (gloss, sheen,
+ * glow, blur, rounded glowing dialogs) only target .theme-aero-*, so these stay flat.
+ */
+:root body:is(.theme-matte-dark, .theme-matte-light) { --aero-gloss: 0; --aero-sheen: 0; --aero-blur: 0px; }
+
+/* ── Command search (quality.js, Ctrl+Q): works in every theme ───────────── */
+#aero-cmd {
+    position: fixed; inset: 0; z-index: 20000; display: flex; justify-content: center; align-items: flex-start;
+    padding-top: 90px; background: rgba(0, 0, 0, 0.18);
+}
+#aero-cmd[hidden] { display: none; }
+#aero-cmd .aero-cmd-box {
+    width: min(620px, 90vw); border-radius: calc(var(--aero-radius, 4px) + 6px); overflow: hidden;
+    background: var(--aero-popup, var(--background-normal));
+    -webkit-backdrop-filter: blur(var(--aero-blur, 0px)) saturate(140%); backdrop-filter: blur(var(--aero-blur, 0px)) saturate(140%);
+    border: 1px solid var(--border-regular-control);
+    box-shadow: 0 18px 50px var(--aero-shadow, rgba(0, 0, 0, 0.35)), 0 0 var(--aero-glow, 0px) var(--aero-glow-color, transparent),
+                inset 0 1px 0 var(--aero-edge, transparent);
+    animation: aero-pop var(--aero-speed, 120ms) ease-out;
+}
+#aero-cmd .aero-cmd-input {
+    width: 100%; box-sizing: border-box; padding: 12px 16px; border: 0; outline: 0; font: inherit; font-size: 15px;
+    color: var(--text-normal); background: transparent; border-bottom: 1px solid var(--border-divider);
+}
+#aero-cmd .aero-cmd-list { list-style: none; margin: 0; padding: 6px; max-height: 360px; overflow-y: auto; }
+#aero-cmd .aero-cmd-item {
+    display: flex; justify-content: space-between; gap: 12px; padding: 7px 10px; border-radius: 6px; cursor: pointer;
+    color: var(--text-normal); font-size: 13px;
+}
+#aero-cmd .aero-cmd-item[aria-selected="true"] {
+    background: var(--highlight-button-hover);
+    box-shadow: inset 0 0 0 1px var(--aero-accent, var(--border-control-focus));
+}
+#aero-cmd .aero-cmd-item.disabled { opacity: 0.5; }
+#aero-cmd .aero-cmd-tab { color: var(--text-secondary); font-size: 12px; white-space: nowrap; }
+#aero-cmd .aero-cmd-empty { padding: 10px; color: var(--text-secondary); font-size: 13px; }
+#aero-cmd .aero-cmd-hint { padding: 6px 14px 8px; font-size: 11px; color: var(--text-tertiary); border-top: 1px solid var(--border-divider); }
+
+/* ── Reading ruler (quality.js, every theme) ─────────────────────────────── */
+#aero-reading-ruler { position: fixed; z-index: 15; pointer-events: none; overflow: hidden; }
+#aero-reading-ruler .aero-ruler-band {
+    position: absolute; left: 0; right: 0;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.32);
+    border-top: 1px solid rgba(var(--aero-accent-rgb, 61, 142, 230), 0.55);
+    border-bottom: 1px solid rgba(var(--aero-accent-rgb, 61, 142, 230), 0.55);
+    background: rgba(var(--aero-accent-rgb, 61, 142, 230), 0.06);
+    transition: top 90ms ease-out;
+}
+html.aero-reduce-motion #aero-reading-ruler .aero-ruler-band { transition: none; }
+
+/* ── Status bar tools group (statusbar.js, every theme) ─────────────────── */
+html.aero-tools-on :is(#btn-zoom-topage, #btn-zoom-towidth, #btn-zoom-down, #btn-zoom-up,
+    #status-btn-zoom-topage, #status-btn-zoom-towidth, #status-btn-zoomdown, #status-btn-zoomup) { display: none !important; }
+#aero-tools { display: inline-flex; align-items: center; gap: 2px; margin: 0 6px; vertical-align: middle; height: 100%; }
+#aero-tools .aero-tool {
+    display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 22px; padding: 0;
+    cursor: pointer; border: 0; border-radius: 4px; background: transparent; color: var(--icon-normal, var(--text-normal));
+    transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+#aero-tools .aero-tool:hover { background: var(--highlight-button-hover); }
+#aero-tools .aero-tool[aria-pressed="true"] {
+    background: var(--highlight-button-pressed);
+    box-shadow: inset 0 0 0 1px var(--aero-accent, var(--border-control-focus));
+}
+#aero-tools .aero-tool:focus-visible { outline: 2px solid var(--aero-accent, var(--border-control-focus)); outline-offset: 1px; }
+:is(body.theme-aero-light, body.theme-aero-dark, body.theme-aero-sepia, body.theme-matte-light, body.theme-matte-dark) #aero-tools #aero-accent {
+    position: relative; right: auto; bottom: auto; display: inline-flex; margin-left: 4px;
+}
+
+/* View & highlights menu */
+.aero-view-menu {
+    position: fixed; z-index: 20000; min-width: 230px; max-height: 70vh; overflow-y: auto; padding: 6px;
+    background: var(--aero-popup, var(--background-normal)); border: 1px solid var(--border-regular-control);
+    border-radius: calc(var(--aero-radius, 4px) + 4px);
+    -webkit-backdrop-filter: blur(var(--aero-blur, 0px)); backdrop-filter: blur(var(--aero-blur, 0px));
+    box-shadow: 0 10px 30px var(--aero-shadow, rgba(0, 0, 0, 0.3)), inset 0 1px 0 var(--aero-edge, transparent);
+    animation: aero-pop var(--aero-speed, 120ms) ease-out;
+}
+.aero-view-menu .aero-view-head { padding: 6px 8px 4px; font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .04em; }
+.aero-view-menu .aero-view-item {
+    display: flex; align-items: center; gap: 8px; width: 100%; padding: 6px 8px; cursor: pointer; text-align: left;
+    font: inherit; font-size: 13px; color: var(--text-normal); background: transparent; border: 0; border-radius: 5px;
+}
+.aero-view-menu .aero-view-item:hover:not(:disabled), .aero-view-menu .aero-view-item:focus-visible { background: var(--highlight-button-hover); outline: 0; }
+.aero-view-menu .aero-view-item:disabled { opacity: 0.45; cursor: default; }
+.aero-view-menu .aero-view-check { width: 14px; color: var(--aero-accent, var(--text-normal)); font-weight: 700; }
+
+/* ── Immersive reader bar (quality.js) ───────────────────────────────────── */
+#aero-immersive {
+    position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 19000;
+    display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 22px;
+    background: var(--aero-popup, var(--background-normal)); border: 1px solid var(--border-regular-control);
+    -webkit-backdrop-filter: blur(var(--aero-blur, 0px)); backdrop-filter: blur(var(--aero-blur, 0px));
+    box-shadow: 0 8px 26px var(--aero-shadow, rgba(0, 0, 0, 0.3)), 0 0 var(--aero-glow, 0px) var(--aero-glow-color, transparent);
+}
+#aero-immersive .aero-imm-title { font-weight: 600; font-size: 12px; color: var(--text-normal); padding: 0 6px; }
+#aero-immersive .aero-imm-btn {
+    height: 26px; padding: 0 12px; cursor: pointer; font: inherit; font-size: 12px; border-radius: 13px;
+    color: var(--text-normal); background: var(--background-normal); border: 1px solid var(--border-regular-control);
+}
+#aero-immersive .aero-imm-btn:hover { border-color: var(--aero-accent, var(--border-control-focus)); box-shadow: 0 0 8px var(--aero-glow-color, transparent); }
+#aero-immersive .aero-imm-btn:focus-visible { outline: 2px solid var(--aero-accent, var(--border-control-focus)); outline-offset: 1px; }
+
+/* ── AI helper (helper.js, every theme) ──────────────────────────────────── */
+.aero-mascot {
+    position: fixed; left: 0; top: 0; z-index: 18000; width: 44px; height: 44px; padding: 0; border: 0; cursor: pointer;
+    background: transparent; transition: transform 380ms cubic-bezier(.2,.8,.2,1), opacity 250ms ease;
+}
+.aero-mascot-typing { opacity: 0.25; }
+.aero-mascot:hover { opacity: 1; }
+.aero-mascot:focus-visible { outline: 2px solid var(--aero-accent, #3d8ee6); outline-offset: 3px; border-radius: 50%; }
+.aero-mascot-orb .aero-orb-core {
+    display: block; width: 34px; height: 34px; margin: 5px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #fff 0, rgba(255,255,255,.85) 12%, rgb(var(--aero-accent-rgb, 61,142,230)) 58%, rgba(10,30,60,.9) 100%);
+    box-shadow: 0 0 14px 4px rgba(var(--aero-accent-rgb, 61,142,230), .55), inset 0 -4px 8px rgba(0,0,0,.3);
+    animation: aero-float 3.2s ease-in-out infinite;
+}
+.aero-mascot-quill svg { width: 44px; height: 44px; filter: drop-shadow(0 0 8px rgba(var(--aero-accent-rgb, 61,142,230), .6)); animation: aero-float 3.6s ease-in-out infinite; }
+@keyframes aero-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+html.aero-reduce-motion .aero-mascot-orb .aero-orb-core, html.aero-reduce-motion .aero-mascot-quill svg { animation: none; }
+
+#aero-help-bubble {
+    position: fixed; z-index: 18001; width: 340px; max-height: 60vh; display: flex; flex-direction: column;
+    border-radius: 14px; overflow: hidden; color: var(--text-normal);
+    background: var(--aero-popup, var(--background-normal)); border: 1px solid var(--border-regular-control);
+    -webkit-backdrop-filter: blur(var(--aero-blur, 0px)); backdrop-filter: blur(var(--aero-blur, 0px));
+    box-shadow: 0 14px 40px var(--aero-shadow, rgba(0,0,0,.35)), 0 0 var(--aero-glow, 0px) var(--aero-glow-color, transparent);
+    animation: aero-pop var(--aero-speed, 140ms) ease-out;
+}
+#aero-help-bubble[hidden] { display: none; }
+#aero-help-bubble .aero-help-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; font-weight: 600;
+    background-image: var(--aero-shine-strong, none); border-bottom: 1px solid var(--border-divider); }
+#aero-help-bubble .aero-help-close { border: 0; background: transparent; color: var(--text-normal); font-size: 18px; cursor: pointer; line-height: 1; }
+#aero-help-bubble .aero-help-log { flex: 1; overflow-y: auto; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; min-height: 60px; }
+#aero-help-bubble .aero-help-msg { padding: 7px 10px; border-radius: 10px; font-size: 13px; line-height: 1.45; max-width: 92%; }
+#aero-help-bubble .aero-help-msg p { margin: 0 0 6px; }
+#aero-help-bubble .aero-help-msg p:last-of-type { margin-bottom: 0; }
+#aero-help-bubble .aero-help-user { align-self: flex-end; color: #fff; background: rgb(var(--aero-accent-rgb, 61,142,230)); }
+#aero-help-bubble .aero-help-bot { align-self: flex-start; background: var(--background-normal); border: 1px solid var(--border-divider); }
+#aero-help-bubble .aero-help-action {
+    display: block; margin-top: 6px; padding: 4px 10px; cursor: pointer; font: inherit; font-size: 12px; border-radius: 12px;
+    color: var(--text-normal); background: rgba(var(--aero-accent-rgb, 61,142,230), .15); border: 1px solid rgb(var(--aero-accent-rgb, 61,142,230));
+}
+#aero-help-bubble .aero-help-action.missing { opacity: .55; border-style: dashed; cursor: default; }
+#aero-help-bubble .aero-help-chips { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 12px 8px; }
+#aero-help-bubble .aero-help-chip { padding: 3px 8px; font: inherit; font-size: 11px; cursor: pointer; border-radius: 10px;
+    color: var(--text-secondary); background: transparent; border: 1px solid var(--border-regular-control); }
+#aero-help-bubble .aero-help-form { display: flex; gap: 6px; padding: 8px 12px 12px; border-top: 1px solid var(--border-divider); }
+#aero-help-bubble .aero-help-form input { flex: 1; min-width: 0; padding: 6px 8px; font: inherit; font-size: 13px; border-radius: 8px;
+    color: var(--text-normal); background: var(--background-normal); border: 1px solid var(--border-regular-control); }
+#aero-help-bubble .aero-help-send { padding: 0 14px; font: inherit; cursor: pointer; border-radius: 8px; color: #fff;
+    background: rgb(var(--aero-accent-rgb, 61,142,230)); border: 0; }
+.aero-mascot-dragging { transition: none !important; cursor: grabbing; opacity: 1 !important; }
+.aero-mascot { cursor: grab; touch-action: none; }
+#aero-help-bubble .aero-help-title { font-size: 14px; }
+#aero-help-bubble .aero-help-tools { display: flex; align-items: center; gap: 4px; }
+#aero-help-bubble .aero-help-tool { padding: 2px 8px; font: inherit; font-size: 11px; font-weight: 400; cursor: pointer; border-radius: 10px;
+    color: var(--text-normal); background: transparent; border: 1px solid var(--border-regular-control); }
+#aero-help-bubble .aero-help-tool[hidden] { display: none; }
+#aero-help-bubble .aero-help-tool:hover { border-color: var(--aero-accent, var(--border-control-focus)); }
+#aero-help-bubble .aero-help-think[aria-pressed="true"] { border-color: var(--aero-accent, var(--border-control-focus));
+    background: var(--highlight-button-pressed); }
+
+/* AI plugin status pill and toasts (aero-ai.js, drawn from the AI plugin frame). */
+.aero-ai-status { position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%); z-index: 10000;
+    max-width: min(560px, calc(100vw - 32px)); padding: 7px 16px; border-radius: 16px; font-size: 12px;
+    color: var(--text-normal); background: var(--background-notification-popover, var(--background-normal));
+    border: 1px solid var(--aero-accent, var(--border-regular-control)); box-shadow: 0 4px 16px rgba(0, 0, 0, .3);
+    pointer-events: none; }
+.aero-ai-status[hidden] { display: none; }
+.aero-ai-toast { bottom: 80px; }

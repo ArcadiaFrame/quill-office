@@ -1,0 +1,157 @@
+/*
+ * launcher.css: Task Launcher styles (start page). Uses the start page's own color
+ * variables so it fits every theme; the Aero themes add gloss and accent glow via
+ * --aero-* (falling back to stock values in flat themes).
+ */
+.aero-launcher {
+    --tl-accent: var(--aero-accent, var(--background-accent-button, #4473ca));
+    --tl-glow: var(--aero-glow-color, rgba(68, 115, 202, 0.35));
+    --tl-edge: var(--aero-edge, rgba(255, 255, 255, 0.4));
+    --tl-gloss: var(--aero-gloss, 0);
+    --tl-shine: linear-gradient(to bottom,
+        rgba(255, 255, 255, calc(var(--tl-gloss) * 0.5)) 0%,
+        rgba(255, 255, 255, calc(var(--tl-gloss) * 0.18)) 45%,
+        rgba(255, 255, 255, 0) 46%);
+    padding: 24px 32px 16px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: var(--text-normal);
+}
+
+.aero-launcher-head .table-caption { margin: 0; }
+.aero-launcher-sub { margin: 4px 0 18px; color: var(--text-secondary); }
+
+/* ── Editor tiles ───────────────────────────────────────────────────────── */
+.aero-editors { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.aero-editor {
+    display: flex; align-items: center; gap: 12px;
+    min-width: 230px; padding: 12px 16px; cursor: pointer; text-align: left;
+    color: var(--text-normal);
+    background-color: var(--background-normal-element, var(--background-button));
+    background-image: var(--tl-shine);
+    border: 1px solid var(--border-regular-control);
+    border-radius: 10px;
+    transition: box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.aero-editor:hover { box-shadow: inset 0 1px 0 var(--tl-edge), 0 0 10px var(--tl-glow); }
+.aero-editor[aria-pressed="true"] {
+    border-color: var(--tl-accent);
+    box-shadow: inset 0 1px 0 var(--tl-edge), 0 0 0 1px var(--tl-accent), 0 0 12px var(--tl-glow);
+}
+.aero-editor-text { display: flex; flex-direction: column; }
+.aero-editor-label { font-size: 15px; font-weight: 600; }
+.aero-editor-hint { font-size: 11px; color: var(--text-secondary); }
+
+/* Simple original page icons: a sheet with a colored band per editor. */
+.aero-editor-icon {
+    position: relative; width: 30px; height: 38px; flex: none; border-radius: 3px;
+    background: linear-gradient(to bottom, #fff, #e9eef4);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+.aero-editor-icon::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; border-radius: 3px 3px 0 0;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 60%);
+}
+.aero-editor-icon::after {
+    content: ""; position: absolute; left: 6px; right: 6px; top: 17px; height: 14px;
+    background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0 2px, transparent 2px 5px);
+}
+.aero-editor-document .aero-editor-icon::before     { background-color: #3a78c9; }
+.aero-editor-spreadsheet .aero-editor-icon::before  { background-color: #2f9a5b; }
+.aero-editor-presentation .aero-editor-icon::before { background-color: #d06a3a; }
+.aero-editor-pdf .aero-editor-icon::before          { background-color: #d2402d; }
+
+/* ── Categories + grid ──────────────────────────────────────────────────── */
+.aero-launcher-body { display: flex; gap: 20px; align-items: flex-start; }
+.aero-cats { display: flex; flex-direction: column; gap: 4px; min-width: 190px; flex: none; }
+.aero-cat {
+    text-align: left; padding: 7px 12px; cursor: pointer; border: 0; border-radius: 6px;
+    background: transparent; color: var(--text-normal); font-size: 13px;
+    transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+.aero-cat:hover { background-color: var(--highlight-button-hover); }
+.aero-cat[aria-pressed="true"] {
+    background-color: var(--highlight-sidebar-item-pressed, var(--highlight-button-pressed));
+    background-image: var(--tl-shine);
+    box-shadow: inset 0 1px 0 var(--tl-edge), 0 0 8px var(--tl-glow);
+    font-weight: 600;
+}
+
+.aero-task-grid {
+    flex: 1; display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+}
+.aero-task {
+    display: flex; flex-direction: column; gap: 4px; padding: 10px; cursor: pointer; text-align: left;
+    color: var(--text-normal);
+    background-color: var(--background-normal-element-light, var(--background-normal));
+    border: 1px solid var(--border-divider); border-radius: 10px;
+    transition: box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.aero-task:hover { border-color: var(--tl-accent); box-shadow: 0 0 12px var(--tl-glow); transform: translateY(-2px); }
+.aero-task-thumb {
+    display: flex; align-items: center; justify-content: center;
+    height: 150px; border-radius: 6px; overflow: hidden;
+    background: var(--background-normal); box-shadow: inset 0 0 0 1px var(--border-divider);
+}
+.aero-task-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.aero-task-thumb-empty { width: 70%; height: 80%; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25); }
+.aero-task-blank .aero-task-thumb-empty::after {
+    content: "+"; display: flex; align-items: center; justify-content: center; height: 100%;
+    font-size: 40px; font-weight: 300; color: var(--tl-accent);
+}
+.aero-task-name { font-weight: 600; font-size: 13px; }
+.aero-task-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.35; }
+
+.aero-more {
+    margin: 20px 0 0 210px; padding: 6px 14px; cursor: pointer; border-radius: 6px;
+    color: var(--text-link); background: transparent; border: 1px solid var(--border-regular-control);
+}
+.aero-more:hover { box-shadow: 0 0 8px var(--tl-glow); }
+
+/* Keyboard focus: clear, accent-colored rings. */
+.aero-launcher button:focus-visible {
+    outline: 2px solid var(--tl-accent); outline-offset: 2px;
+}
+
+.aero-launcher-icon { fill: none; stroke: currentColor; stroke-width: 1.4; }
+
+@media (prefers-reduced-motion: reduce) {
+    .aero-launcher * { transition: none !important; }
+    .aero-task:hover { transform: none; }
+}
+
+/* The start page styles every <button> with a fixed height and single line; undo that here. */
+.aero-launcher button {
+    height: auto; min-height: 0; line-height: normal; white-space: normal;
+    font-family: inherit; text-transform: none; overflow: visible;
+}
+.aero-launcher-head, .aero-launcher-sub { text-align: left; }
+.aero-task { justify-content: flex-start; align-items: stretch; }
+.aero-editor { justify-content: flex-start; }
+
+/* Blank-document font menu */
+.aero-blank-font { display: flex; align-items: center; gap: 8px; margin: -6px 0 14px 210px; font-size: 12px; color: var(--text-secondary); }
+.aero-blank-font[hidden] { display: none; }
+.aero-blank-font select {
+    height: 26px; padding: 0 6px; border-radius: 6px; font-size: 13px; color: var(--text-normal);
+    background: var(--background-normal-element-light, var(--background-normal)); border: 1px solid var(--border-regular-control);
+}
+.aero-blank-font select:focus-visible { outline: 2px solid var(--tl-accent); outline-offset: 1px; }
+.aero-launcher .aero-link {
+    padding: 0 4px; border: 0; background: transparent; cursor: pointer;
+    color: var(--text-link); text-decoration: underline; font-size: 12px;
+}
+
+/* Favorites */
+.aero-task-wrap { position: relative; display: flex; }
+.aero-task-wrap > .aero-task { flex: 1; }
+.aero-launcher .aero-star {
+    position: absolute; top: 14px; right: 14px; width: 26px; height: 26px; padding: 0; cursor: pointer;
+    font-size: 16px; line-height: 24px; text-align: center; border-radius: 50%;
+    color: #f5b301; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.35);
+    opacity: 0; transition: opacity 120ms ease;
+}
+.aero-task-wrap:hover .aero-star, .aero-star[aria-pressed="true"], .aero-star:focus-visible { opacity: 1; }
+.aero-cat-special { font-weight: 600; }

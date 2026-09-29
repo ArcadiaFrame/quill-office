@@ -1,0 +1,30 @@
+{
+    "name": "Accessibility Checker",
+    "guid": "asc.{7F3C1A2E-4B5D-4C6E-8A9F-0B1C2D3E4F01}",
+    "version": "1.0.0",
+    "baseUrl": "",
+    "variations": [
+        {
+            "description": "Find and fix accessibility problems: missing alt text, heading structure, table descriptions, unclear links, document title and spacing.",
+            "url": "index.html",
+            "icons": ["resources/light/icon.png", "resources/light/icon@2x.png"],
+            "icons2": [
+                { "style": "light", "100%": { "normal": "resources/light/icon.png" }, "125%": { "normal": "resources/light/icon@1.25x.png" },
+                  "150%": { "normal": "resources/light/icon@1.5x.png" }, "175%": { "normal": "resources/light/icon@1.75x.png" },
+                  "200%": { "normal": "resources/light/icon@2x.png" } },
+                { "style": "dark", "100%": { "normal": "resources/dark/icon.png" }, "125%": { "normal": "resources/dark/icon@1.25x.png" },
+                  "150%": { "normal": "resources/dark/icon@1.5x.png" }, "175%": { "normal": "resources/dark/icon@1.75x.png" },
+                  "200%": { "normal": "resources/dark/icon@2x.png" } }
+            ],
+            "isViewer": false,
+            "EditorsSupport": ["word"],
+            "isVisual": true,
+            "isModal": false,
+            "isInsideMode": true,
+            "initDataType": "none",
+            "initData": "",
+            "isUpdateOleOnResize": false,
+            "buttons": []
+        }
+    ]
+}

@@ -1,0 +1,327 @@
+{
+    "_help": "Task Launcher data. Edit freely, then run: python aero/apply-aero.py. Each task needs category, name, description, editor (document | spreadsheet | presentation) and template. template is either \"builtin:<name>\" (a template that ships with the app, matched by its display name) or a file path relative to aero/launcher/ (e.g. \"templates/letter.docx\"). thumbnail is optional: a path relative to aero/launcher/. Built-in templates use the app's own preview when it's missing.",
+    "categories": [
+        "Letters & Correspondence",
+        "Flyers & Newsletters",
+        "School & Research",
+        "Home & Money",
+        "Business"
+    ],
+    "tasks": [
+        {
+            "category": "Letters & Correspondence",
+            "editor": "document",
+            "name": "Resume",
+            "description": "A clean one-page resume with a sky-blue accent.",
+            "template": "builtin:Resume (sky blue)"
+        },
+        {
+            "category": "Letters & Correspondence",
+            "editor": "document",
+            "name": "Two weeks' notice",
+            "description": "A polite resignation letter, ready to personalize.",
+            "template": "builtin:Two weeks notice"
+        },
+        {
+            "category": "Letters & Correspondence",
+            "editor": "document",
+            "name": "Business letter",
+            "description": "A formal letter with a clean letterhead.",
+            "template": "builtin:Business letter"
+        },
+        {
+            "category": "Letters & Correspondence",
+            "editor": "document",
+            "name": "Cover letter",
+            "description": "Introduce yourself for a job application.",
+            "template": "builtin:Cover letter"
+        },
+        {
+            "category": "Letters & Correspondence",
+            "editor": "document",
+            "name": "Thank-you note",
+            "description": "A warm, handwritten-style note of thanks.",
+            "template": "builtin:Thank-you note"
+        },
+        {
+            "category": "Flyers & Newsletters",
+            "editor": "document",
+            "name": "Gift certificate",
+            "description": "A printable gift certificate for any occasion.",
+            "template": "builtin:Gift Certificate"
+        },
+        {
+            "category": "Flyers & Newsletters",
+            "editor": "document",
+            "name": "Event flyer",
+            "description": "Announce an event with the when, where and cost.",
+            "template": "builtin:Event flyer"
+        },
+        {
+            "category": "Flyers & Newsletters",
+            "editor": "document",
+            "name": "Newsletter",
+            "description": "A two-column newsletter with stories and dates.",
+            "template": "builtin:Newsletter"
+        },
+        {
+            "category": "Flyers & Newsletters",
+            "editor": "presentation",
+            "name": "Poster",
+            "description": "A bold single-page poster for events or announcements.",
+            "template": "builtin:Poster"
+        },
+        {
+            "category": "School & Research",
+            "editor": "document",
+            "name": "Certificate",
+            "description": "Recognize an achievement with a formal certificate.",
+            "template": "builtin:Certificate"
+        },
+        {
+            "category": "School & Research",
+            "editor": "document",
+            "name": "Diploma",
+            "description": "An official-style diploma or award.",
+            "template": "builtin:Diploma official style"
+        },
+        {
+            "category": "School & Research",
+            "editor": "document",
+            "name": "Research report",
+            "description": "Title page, abstract and sections for a report.",
+            "template": "builtin:Research report"
+        },
+        {
+            "category": "School & Research",
+            "editor": "document",
+            "name": "Book report",
+            "description": "Summarize and review a book you've read.",
+            "template": "builtin:Book report"
+        },
+        {
+            "category": "School & Research",
+            "editor": "spreadsheet",
+            "name": "Study schedule",
+            "description": "Plan study time across the week, hour by hour.",
+            "template": "builtin:Study schedule"
+        },
+        {
+            "category": "School & Research",
+            "editor": "spreadsheet",
+            "name": "Grade tracker",
+            "description": "Scores and weights with an automatic average.",
+            "template": "builtin:Grade tracker"
+        },
+        {
+            "category": "School & Research",
+            "editor": "presentation",
+            "name": "Timeline",
+            "description": "Lay out events or project milestones in order.",
+            "template": "builtin:Timeline"
+        },
+        {
+            "category": "School & Research",
+            "editor": "presentation",
+            "name": "World timeline",
+            "description": "A timeline with a world map, for history projects.",
+            "template": "builtin:Timeline World"
+        },
+        {
+            "category": "School & Research",
+            "editor": "presentation",
+            "name": "Tree diagram",
+            "description": "Show a hierarchy, family tree or breakdown.",
+            "template": "builtin:Tree"
+        },
+        {
+            "category": "School & Research",
+            "editor": "presentation",
+            "name": "Quiz game",
+            "description": "A Jeopardy-style quiz board for class or parties.",
+            "template": "builtin:Jeopardy"
+        },
+        {
+            "category": "School & Research",
+            "editor": "presentation",
+            "name": "Class presentation",
+            "description": "Present a topic: background, findings, sources.",
+            "template": "builtin:Class presentation"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "document",
+            "name": "Daily schedule",
+            "description": "Plan your day hour by hour.",
+            "template": "builtin:Daily schedule"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "document",
+            "name": "Checklist",
+            "description": "Keep track of tasks and tick them off.",
+            "template": "builtin:Checklist official style"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "document",
+            "name": "Recipe card",
+            "description": "Ingredients, directions and notes for a recipe.",
+            "template": "builtin:Recipe card"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "spreadsheet",
+            "name": "Loan amortization",
+            "description": "See every payment, interest and balance for a loan.",
+            "template": "builtin:Amortization schedule"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "spreadsheet",
+            "name": "Pay stub",
+            "description": "Record earnings, deductions and net pay.",
+            "template": "builtin:Pay stub"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "spreadsheet",
+            "name": "Monthly budget",
+            "description": "Plan income and expenses; totals calculate for you.",
+            "template": "builtin:Monthly budget"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "spreadsheet",
+            "name": "Meal planner",
+            "description": "Plan the week's meals and a grocery list.",
+            "template": "builtin:Meal planner"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "spreadsheet",
+            "name": "Chore chart",
+            "description": "Share out household chores for the week.",
+            "template": "builtin:Chore chart"
+        },
+        {
+            "category": "Home & Money",
+            "editor": "presentation",
+            "name": "Photo album",
+            "description": "Share photos with captions, one per slide.",
+            "template": "builtin:Photo album"
+        },
+        {
+            "category": "Business",
+            "editor": "document",
+            "name": "Purchase order",
+            "description": "Order goods from a supplier with line items and totals.",
+            "template": "builtin:Purchase order template"
+        },
+        {
+            "category": "Business",
+            "editor": "document",
+            "name": "Operating procedure",
+            "description": "Document a standard operating procedure step by step.",
+            "template": "builtin:Standard Operating Procedure"
+        },
+        {
+            "category": "Business",
+            "editor": "document",
+            "name": "Organization chart",
+            "description": "Show who reports to whom.",
+            "template": "builtin:Organizational chart (horizontal)"
+        },
+        {
+            "category": "Business",
+            "editor": "document",
+            "name": "Meeting minutes",
+            "description": "Record attendees, decisions and action items.",
+            "template": "builtin:Meeting minutes"
+        },
+        {
+            "category": "Business",
+            "editor": "document",
+            "name": "Memo",
+            "description": "A short internal memo with To, From and Subject.",
+            "template": "builtin:Memo"
+        },
+        {
+            "category": "Business",
+            "editor": "spreadsheet",
+            "name": "Invoice",
+            "description": "Bill a customer for goods or services.",
+            "template": "builtin:Invoice"
+        },
+        {
+            "category": "Business",
+            "editor": "spreadsheet",
+            "name": "Profit and loss",
+            "description": "Summarize income and expenses for a period.",
+            "template": "builtin:Profit and loss statement"
+        },
+        {
+            "category": "Business",
+            "editor": "spreadsheet",
+            "name": "Project Gantt chart",
+            "description": "Schedule tasks and see them on a timeline.",
+            "template": "builtin:Gantt chart"
+        },
+        {
+            "category": "Business",
+            "editor": "spreadsheet",
+            "name": "Staff schedule",
+            "description": "Plan shifts for your team week by week.",
+            "template": "builtin:Staff schedule"
+        },
+        {
+            "category": "Business",
+            "editor": "spreadsheet",
+            "name": "Sales pipeline",
+            "description": "Track leads and deals through each stage.",
+            "template": "builtin:Sales pipeline"
+        },
+        {
+            "category": "Business",
+            "editor": "presentation",
+            "name": "Meeting agenda",
+            "description": "Walk through the topics for your next meeting.",
+            "template": "builtin:Agenda"
+        },
+        {
+            "category": "Business",
+            "editor": "presentation",
+            "name": "Executive summary",
+            "description": "Present key results and recommendations.",
+            "template": "builtin:Executive summary"
+        },
+        {
+            "category": "Business",
+            "editor": "presentation",
+            "name": "Infographic summary",
+            "description": "An executive summary built from visual infographics.",
+            "template": "builtin:Executive summary Infographics"
+        },
+        {
+            "category": "Business",
+            "editor": "presentation",
+            "name": "Org chart slides",
+            "description": "Introduce your team structure in a presentation.",
+            "template": "builtin:Org chart"
+        },
+        {
+            "category": "Business",
+            "editor": "presentation",
+            "name": "SWOT analysis",
+            "description": "Weigh strengths, weaknesses, opportunities and threats.",
+            "template": "builtin:Simple swot analysis"
+        },
+        {
+            "category": "Business",
+            "editor": "presentation",
+            "name": "Project status",
+            "description": "Update stakeholders on progress, risks and next steps.",
+            "template": "builtin:Project status"
+        }
+    ]
+}

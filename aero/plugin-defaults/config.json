@@ -1,0 +1,24 @@
+{
+    "name": "Aero Defaults",
+    "guid": "asc.{6A5E9C2B-3F4D-4E8A-9B1C-AE20D5F0C001}",
+    "version": "1.0.0",
+    "baseUrl": "",
+    "variations": [
+        {
+            "description": "Applies your Personalize defaults (font, size, paper, margins, spacing, slide size) to new blank documents. Runs invisibly in the background.",
+            "url": "index.html",
+            "icons": [],
+            "isViewer": false,
+            "EditorsSupport": ["word", "cell", "slide"],
+            "isVisual": false,
+            "isModal": false,
+            "isInsideMode": false,
+            "isSystem": true,
+            "initDataType": "none",
+            "initData": "",
+            "isUpdateOleOnResize": false,
+            "buttons": [],
+            "events": ["onDocumentContentReady"]
+        }
+    ]
+}

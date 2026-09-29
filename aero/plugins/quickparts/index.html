@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quick Parts</title>
+    <link rel="stylesheet" href="../v1/plugins.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="../v1/plugins.js"></script>
+    <script src="../v1/plugins-ui.js"></script>
+    <script src="code.js"></script>
+</head>
+<body>
+    <main class="qp">
+        <nav class="tabs" role="tablist" aria-label="Quick Parts sections">
+            <button type="button" role="tab" id="tab-parts" aria-selected="true" aria-controls="panel-parts">Parts</button>
+            <button type="button" role="tab" id="tab-dict" aria-selected="false" aria-controls="panel-dict">My dictionary</button>
+        </nav>
+
+        <section id="panel-parts" role="tabpanel" aria-labelledby="tab-parts">
+            <input type="search" id="search" placeholder="Search parts…" aria-label="Search parts">
+            <div id="cats" class="chips" role="group" aria-label="Categories"></div>
+            <div id="list" class="list" aria-live="polite"></div>
+            <div class="row">
+                <button type="button" id="new" class="btn-text-default">New part</button>
+                <button type="button" id="fromsel" class="btn-text-default">Save selection as part</button>
+            </div>
+            <form id="editor" class="editor" hidden>
+                <label>Category <select id="ed-cat"></select></label>
+                <label>Name <input type="text" id="ed-name" required></label>
+                <label>Text <textarea id="ed-text" rows="5" required></textarea></label>
+                <div class="row">
+                    <button type="submit" class="btn-text-default">Save</button>
+                    <button type="button" id="ed-cancel" class="btn-text-default">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="panel-dict" role="tabpanel" aria-labelledby="tab-dict" hidden>
+            <p class="hint">Words you add here are never marked as spelling mistakes, in any document.</p>
+            <div class="row">
+                <input type="text" id="word" placeholder="Add a word…" aria-label="Word to add">
+                <button type="button" id="addword" class="btn-text-default">Add</button>
+            </div>
+            <ul id="words" class="words"></ul>
+            <button type="button" id="clearwords" class="btn-text-default">Clear all custom words</button>
+            <p class="hint">"Clear all" also removes words added from the right-click spelling menu.</p>
+        </section>
+    </main>
+</body>
+</html>
