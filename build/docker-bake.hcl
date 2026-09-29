@@ -57,6 +57,21 @@ variable "PRODUCT_NAME" {
   default = "Desktop Editors"
 }
 
+# Editor plugins bundled into editors/sdkjs-plugins (see desktop-composer).
+# Entries are names under sdkjs-plugins/content/ or repo-relative paths
+# (store/plugin is the Plugin Manager: left out on purpose, every extension is bundled).
+variable "SDKJS_PLUGINS_REPO" {
+  default = "https://github.com/ONLYOFFICE/onlyoffice.github.io.git"
+}
+
+variable "SDKJS_PLUGINS_REF" {
+  default = "00f642a604b3c139ab628ece27f4fbc8eb621645"
+}
+
+variable "SDKJS_PLUGINS" {
+  default = "ai highlightcode ocr photoeditor speech thesaurus translator youtube zotero mendeley"
+}
+
 # ──────────────────────────────────────────────
 # BUILD GROUPS
 # ──────────────────────────────────────────────
@@ -143,6 +158,11 @@ target "desktop-common" {
   dockerfile = "./build/.docker/desktop-composer.bake.Dockerfile"
   target     = "desktop-common"       # points to the FROM scratch stage
   tags       = ["${REGISTRY}/desktop-common:${TAG}"]
+  args = {
+    SDKJS_PLUGINS_REPO = "${SDKJS_PLUGINS_REPO}"
+    SDKJS_PLUGINS_REF  = "${SDKJS_PLUGINS_REF}"
+    SDKJS_PLUGINS      = "${SDKJS_PLUGINS}"
+  }
   contexts = {
     desktop-js      = "target:desktop-js"       #   even in stages before desktop-common
     sdkjs-desktop   = "target:sdkjs-desktop"
